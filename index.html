@@ -1,57 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Broker Client Portal</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Loan Portal</title>
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-
-<header>
-<h1>Client Loan Portal</h1>
-<p>Track your application and upload documents</p>
+<header class="header">
+  <div class="header-inner">
+    <h1>Client Loan Portal</h1>
+    <p>Secure document uploads & live application tracking</p>
+  </div>
 </header>
-
 
 <main class="container">
 
+  <!-- APPLICATION STATUS -->
+  <section class="card">
+    <div class="card-header">
+      <h2>Application Progress</h2>
+      <span class="badge">Active</span>
+    </div>
 
-<section class="card">
-<h2>Application Status</h2>
-<div class="status">
-<div class="active">Fact Find</div>
-<div>Submitted</div>
-<div>Conditional</div>
-<div>Approved</div>
-<div>Settlement</div>
-</div>
-</section>
+    <div class="status">
+      <div class="step active">Fact Find</div>
+      <div class="step active">Submitted</div>
+      <div class="step">Conditional</div>
+      <div class="step">Approved</div>
+      <div class="step">Settlement</div>
+    </div>
+  </section>
 
+  <!-- DOCUMENT UPLOAD -->
+  <section class="card">
+    <div class="card-header">
+      <h2>Document Uploads</h2>
+      <span class="subtext">PDF, JPG, PNG</span>
+    </div>
 
-<section class="card">
-<h2>Upload Documents</h2>
-<input type="file" id="fileInput">
-<button onclick="uploadFile()">Upload</button>
-<ul id="fileList"></ul>
-<p class="note">* Demo only – files stay in your browser</p>
-</section>
+    <div class="upload-box">
+      <input type="file" id="fileInput">
+      <button onclick="uploadFile()">Upload Document</button>
+    </div>
 
+    <ul id="fileList" class="file-list"></ul>
+    <p class="note">Demo mode — files remain in your browser</p>
+  </section>
 
-<section class="card">
-<h2>Broker Message</h2>
-<p>Please upload your most recent payslip.</p>
-</section>
-
+  <!-- BROKER MESSAGE -->
+  <section class="card">
+    <div class="card-header">
+      <h2>Broker Update</h2>
+    </div>
+    <p class="message">
+      Please upload your most recent payslip so we can progress your application toward formal approval.
+    </p>
+  </section>
 
 </main>
 
-
-<footer>
-© 2025 Broker Client Portal
+<footer class="footer">
+  © 2025 Client Loan Portal · Confidential & Secure
 </footer>
-
 
 <script src="app.js"></script>
 </body>
