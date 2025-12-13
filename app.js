@@ -1,19 +1,22 @@
-function uploadFile() {
-const input = document.getElementById('fileInput');
-const list = document.getElementById('fileList');
+# Client Loan Portal (GitHub Pages)
 
+This is a professional, static client portal designed for GitHub Pages.
 
-if (!input.files.length) {
-alert('Please select a file');
-return;
-}
+## Features
+- Application status tracker
+- Document upload UI (demo mode)
+- Broker messaging section
+- Modern fintech-style design
 
+## Limitations
+- No backend
+- No real file storage
+- Browser-only demo
 
-const file = input.files[0];
-const li = document.createElement('li');
-li.textContent = file.name + ' (added)';
-list.appendChild(li);
+## Deployment
+1. Push files to GitHub
+2. Repo → Settings → Pages
+3. Branch: main / root
+4. Save
 
-
-input.value = '';
-}
+For real uploads, connect this UI to Supabase or a Node backend.
