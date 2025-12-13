@@ -10,13 +10,14 @@
 <body class="bg-gray-100 text-gray-800">
 
 <div class="min-h-screen flex">
+
   <!-- Sidebar -->
   <aside class="w-64 p-6 bg-[#00abe5] text-white flex flex-col">
     <img src="https://lmg-broker.s3.ap-southeast-2.amazonaws.com/brokers/loan-market-lms/31t1sfgj.wds.png" class="mb-8 w-40 mx-auto" />
     <nav class="flex-1">
       <ul class="space-y-3">
         <li><a href="#" class="tab-link active">Dashboard</a></li>
-        <li><a href="client-dashboard.html" class="tab-link">Clients</a></li>
+        <li><a href="#" class="tab-link">Clients</a></li>
         <li><a href="#" class="tab-link">Messages</a></li>
         <li><a href="#" class="tab-link">Settings</a></li>
       </ul>
@@ -26,6 +27,7 @@
   <!-- Main Content -->
   <main class="flex-1 p-8 relative">
 
+    <!-- Top-right broker info -->
     <div class="absolute top-4 right-8">
       <div class="relative group">
         <span class="font-semibold text-[#00abe5]">Welcome, Broker</span>
@@ -37,18 +39,25 @@
 
     <h1 class="text-3xl font-bold text-[#00abe5] mb-6">Broker Dashboard</h1>
 
-    <div class="card col-span-full">
-      <h2 class="text-xl font-semibold mb-4">Clients</h2>
-      <div class="flex mb-4 gap-2">
+    <!-- Add Client -->
+    <div class="card mb-6 p-4 bg-white shadow rounded">
+      <h2 class="text-xl font-semibold mb-4">Add Client</h2>
+      <div class="flex gap-2">
         <input type="text" id="clientName" placeholder="Client Name" class="border p-2 rounded flex-1">
         <input type="email" id="clientEmail" placeholder="Client Email" class="border p-2 rounded flex-1">
-        <button class="bg-[#00abe5] text-white px-4 rounded" onclick="addClient()">Add Client</button>
+        <button class="bg-[#00abe5] text-white px-4 rounded" onclick="addClient()">Add</button>
       </div>
+    </div>
+
+    <!-- Client Table -->
+    <div class="card p-4 bg-white shadow rounded">
+      <h2 class="text-xl font-semibold mb-4">Clients</h2>
       <table class="min-w-full border border-gray-300">
         <thead class="bg-[#00abe5] text-white">
           <tr>
             <th class="p-2">Name</th>
             <th class="p-2">Email</th>
+            <th class="p-2">Status</th>
             <th class="p-2">Actions</th>
           </tr>
         </thead>
@@ -74,9 +83,14 @@ function renderClients() {
     tr.innerHTML = `
       <td class="p-2 border">${c.name}</td>
       <td class="p-2 border">${c.email}</td>
+      <td class="p-2 border">
+        <select onchange="updateStatus('${c.id}', this.value)" class="border p-1 rounded w-full">
+          ${['Fact Find','Submitted','Conditional','Approved','Settlement'].map(s => `<option value="${s}" ${c.status===s?'selected':''}>${s}</option>`).join('')}
+        </select>
+      </td>
       <td class="p-2 border flex gap-1">
         <button class="bg-red-500 text-white px-2 py-1 rounded" onclick="removeClient('${c.id}')">Delete</button>
-        <button class="bg-green-500 text-white px-2 py-1 rounded" onclick="viewClient('${c.id}')">View</button>
+        <button class="bg-green-500 text-white px-2 py-1 rounded" onclick="addMessage('${c.id}')">Add Message</button>
       </td>
     `;
     tbody.appendChild(tr);
@@ -86,9 +100,9 @@ function renderClients() {
 function addClient() {
   const name = document.getElementById('clientName').value.trim();
   const email = document.getElementById('clientEmail').value.trim();
-  if (!name || !email) return alert('Please fill both fields');
-  const id = Date.now().toString(); // unique ID for login
-  clients.push({id, name, email, documents: [], messages: [], status: 'Fact Find'});
+  if(!name || !email) return alert('Fill both fields');
+  const id = Date.now().toString();
+  clients.push({id, name, email, status:'Fact Find', messages:[], documents:[]});
   localStorage.setItem('clients', JSON.stringify(clients));
   renderClients();
   document.getElementById('clientName').value = '';
@@ -96,20 +110,30 @@ function addClient() {
 }
 
 function removeClient(id) {
-  clients = clients.filter(c => c.id !== id);
+  clients = clients.filter(c => c.id!==id);
   localStorage.setItem('clients', JSON.stringify(clients));
   renderClients();
 }
 
-function viewClient(id) {
-  alert(`Client ID: ${id}\nThis could link to a detailed client page.`);
+function updateStatus(id, status) {
+  const client = clients.find(c=>c.id===id);
+  client.status = status;
+  localStorage.setItem('clients', JSON.stringify(clients));
+  renderClients();
+}
+
+function addMessage(id) {
+  const msg = prompt('Enter message for client:');
+  if(!msg) return;
+  const client = clients.find(c=>c.id===id);
+  client.messages.push(msg);
+  localStorage.setItem('clients', JSON.stringify(clients));
+  renderClients();
 }
 
 renderClients();
 
-function logout() {
-  window.location.href = 'login.html';
-}
+function logout() { window.location.href='index.html'; }
 </script>
 
 </body>
