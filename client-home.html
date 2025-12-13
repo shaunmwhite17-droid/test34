@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+<div class="min-h-screen p-8">
+  <button class="bg-red-500 text-white px-4 py-2 rounded float-right" onclick="logout()">Logout</button>
+  <h1 class="text-3xl font-bold text-[#00abe5] mb-6" id="clientName"></h1>
+
+  <div class="card mb-4">
+    <h2 class="text-xl font-semibold mb-2">Application Status</h2>
+    <p id="clientStatus"></p>
+  </div>
+
+  <div class="card mb-4">
+    <h2 class="text-xl font-semibold mb-2">Messages</h2>
+    <ul id="clientMessages" class="list-disc pl-5"></ul>
+  </div>
+
+  <div class="card mb-4">
+    <h2 class="text-xl font-semibold mb-2">Documents</h2>
+    <ul id="clientDocs" class="list-disc pl-5"></ul>
+  </div>
+
+</div>
+
+<script>
+const client = JSON.parse(localStorage.getItem('currentClient') || '{}');
+if(!client.id){
+  alert('Not logged in');
+  window.location.href='client-dashboard.html';
+}
+
+document.getElementById('clientName').textContent = client.name;
+document.getElementById('clientStatus').textContent = client.status || 'No status yet';
+
+const msgsEl = document.getElementById('clientMessages');
+(client.messages || []).forEach(m => {
+  const li = document.createElement('li');
+  li.textContent = m;
+  msgsEl.appendChild(li);
+});
+
+const docsEl = document.getElementById('clientDocs');
+(client.documents || []).forEach(d => {
+  const li = document.createElement('li');
+  li.textContent = d;
+  docsEl.appendChild(li);
+});
+
+function logout(){
+  localStorage.removeItem('currentClient');
+  window.location.href='client-dashboard.html';
+}
+</script>
+
+</body>
+</html>
