@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Client Loan Portal</title>
 
-  <!-- Font -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,13 +15,15 @@
 </head>
 <body>
 
+<!-- HEADER -->
 <header class="header">
   <div class="header-inner">
     <h1>Client Loan Portal</h1>
-    <p>Secure document uploads & live application tracking</p>
+    <p>Secure document uploads, real-time application tracking & broker updates</p>
   </div>
 </header>
 
+<!-- MAIN CONTAINER -->
 <main class="container">
 
   <!-- APPLICATION STATUS -->
@@ -44,7 +46,7 @@
   <section class="card">
     <div class="card-header">
       <h2>Document Uploads</h2>
-      <span class="subtext">PDF, JPG, PNG</span>
+      <span class="subtext">Accepted: PDF, JPG, PNG</span>
     </div>
 
     <div class="upload-box">
@@ -56,18 +58,46 @@
     <p class="note">Demo mode — files remain in your browser</p>
   </section>
 
-  <!-- BROKER MESSAGE -->
+  <!-- BROKER MESSAGES -->
   <section class="card">
     <div class="card-header">
-      <h2>Broker Update</h2>
+      <h2>Broker Updates</h2>
     </div>
-    <p class="message">
-      Please upload your most recent payslip so we can progress your application toward formal approval.
-    </p>
+    <ul class="messages">
+      <li><strong>Broker:</strong> Please upload your most recent payslip to move to formal approval.</li>
+      <li><strong>Broker:</strong> Your mortgage options have been updated, check the documents section.</li>
+    </ul>
+  </section>
+
+  <!-- LOAN SUMMARY -->
+  <section class="card">
+    <div class="card-header">
+      <h2>Loan Summary</h2>
+    </div>
+    <ul class="loan-summary">
+      <li><strong>Loan Type:</strong> Home Loan</li>
+      <li><strong>Amount:</strong> $650,000</li>
+      <li><strong>Interest Rate:</strong> 5.25%</li>
+      <li><strong>Term:</strong> 30 years</li>
+    </ul>
+  </section>
+
+  <!-- SUPPORT CONTACT -->
+  <section class="card">
+    <div class="card-header">
+      <h2>Need Help?</h2>
+    </div>
+    <p>If you have any questions, contact your broker directly:</p>
+    <ul class="contact-info">
+      <li>Email: support@brokerportal.com</li>
+      <li>Phone: 1800-123-456</li>
+      <li>Live Chat: Available 9am - 6pm</li>
+    </ul>
   </section>
 
 </main>
 
+<!-- FOOTER -->
 <footer class="footer">
   © 2025 Client Loan Portal · Confidential & Secure
 </footer>
