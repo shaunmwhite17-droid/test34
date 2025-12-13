@@ -9,29 +9,46 @@
 </head>
 <body class="bg-gray-100 text-gray-800">
 
-<div class="min-h-screen flex justify-center items-start pt-16">
+<div class="min-h-screen p-8">
+  <button class="bg-red-500 text-white px-4 py-2 rounded float-right" onclick="logout()">Logout</button>
+  <h1 class="text-3xl font-bold text-[#00abe5] mb-6" id="clientName"></h1>
 
-  <div class="card w-full max-w-md">
-    <h1 class="text-2xl font-bold text-[#00abe5] mb-4">Client Login</h1>
-    <input type="email" id="loginEmail" placeholder="Enter your email" class="border p-2 rounded w-full mb-2">
-    <button class="bg-[#00abe5] text-white px-4 py-2 rounded w-full" onclick="login()">Login</button>
-    <p class="text-red-500 mt-2" id="loginError"></p>
+  <div class="card mb-4 p-4 bg-white shadow rounded">
+    <h2 class="text-xl font-semibold mb-2">Application Status</h2>
+    <p id="clientStatus" class="font-semibold text-lg"></p>
+  </div>
+
+  <div class="card mb-4 p-4 bg-white shadow rounded">
+    <h2 class="text-xl font-semibold mb-2">Messages</h2>
+    <ul id="clientMessages" class="list-disc pl-5"></ul>
+  </div>
+
+  <div class="card mb-4 p-4 bg-white shadow rounded">
+    <h2 class="text-xl font-semibold mb-2">Documents</h2>
+    <ul id="clientDocs" class="list-disc pl-5"></ul>
   </div>
 
 </div>
 
 <script>
-function login() {
-  const email = document.getElementById('loginEmail').value.trim();
-  const clients = JSON.parse(localStorage.getItem('clients') || '[]');
-  const client = clients.find(c => c.email === email);
-  if (!client) {
-    document.getElementById('loginError').textContent = 'Email not found';
-    return;
-  }
-  localStorage.setItem('currentClient', JSON.stringify(client));
-  window.location.href = 'client-home.html';
-}
+const client = JSON.parse(localStorage.getItem('currentClient') || '{}');
+if(!client.id) { alert('Not logged in'); window.location.href='index.html'; }
+
+document.getElementById('clientName').textContent = client.name;
+document.getElementById('clientStatus').textContent = client.status || 'No status yet';
+
+const msgsEl = document.getElementById('clientMessages');
+(client.messages || []).forEach(m=>{
+  const li = document.createElement('li'); li.textContent = m; msgsEl.appendChild(li);
+});
+
+const docsEl = document.getElementById('clientDocs');
+(client.documents || []).forEach(d=>{
+  const li = document.createElement('li'); li.textContent = d; docsEl.appendChild(li);
+});
+
+function logout() { localStorage.removeItem('currentClient'); window.location.href='index.html'; }
 </script>
+
 </body>
 </html>
