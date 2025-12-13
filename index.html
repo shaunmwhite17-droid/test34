@@ -3,115 +3,142 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Client CRM Portal</title>
+  <title>Client CRM Dashboard</title>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Styles -->
+  <!-- Optional custom CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="bg-gray-100 text-gray-800">
 
-<!-- SIDEBAR -->
-<aside class="sidebar">
-  <div class="sidebar-header">
-    <h2>Broker CRM</h2>
-  </div>
-  <nav class="sidebar-nav">
-    <ul>
-      <li class="active">Dashboard</li>
-      <li>Applications</li>
-      <li>Documents</li>
-      <li>Messages</li>
-      <li>Loan Summary</li>
-      <li>Support</li>
-    </ul>
-  </nav>
-</aside>
+<div class="min-h-screen flex">
 
-<!-- MAIN CONTENT -->
-<div class="main-content">
-  <header class="topbar">
-    <h1>Client Dashboard</h1>
-    <div class="user-info">Welcome, John Doe</div>
-  </header>
-
-  <main class="container">
-
-    <!-- APPLICATION STATUS -->
-    <section class="card status-card">
-      <div class="card-header">
-        <h2>Application Progress</h2>
-      </div>
-      <div class="status">
-        <div class="step active">Fact Find</div>
-        <div class="step active">Submitted</div>
-        <div class="step">Conditional</div>
-        <div class="step">Approved</div>
-        <div class="step">Settlement</div>
-      </div>
-    </section>
-
-    <!-- DOCUMENT UPLOAD -->
-    <section class="card upload-card">
-      <div class="card-header">
-        <h2>Upload Documents</h2>
-        <span class="subtext">PDF, JPG, PNG</span>
-      </div>
-      <div class="upload-box">
-        <input type="file" id="fileInput">
-        <button onclick="uploadFile()">Upload</button>
-      </div>
-      <ul id="fileList" class="file-list"></ul>
-      <p class="note">Demo mode — files remain in your browser</p>
-    </section>
-
-    <!-- BROKER MESSAGES -->
-    <section class="card messages-card">
-      <div class="card-header">
-        <h2>Broker Messages</h2>
-      </div>
-      <ul class="messages">
-        <li><strong>Broker:</strong> Please upload your most recent payslip.</li>
-        <li><strong>Broker:</strong> Your loan options have been updated.</li>
+  <!-- Sidebar -->
+  <aside class="w-64 p-6 bg-[#35261f] text-[#f7f1e8] flex flex-col">
+    <img src="https://www.bdrealty.com.au/static/a77f2bb3b5df24c2d9f049ec2fd9f0e0/Logo-1-1-hickoryBg.jpg" class="mb-8 w-40 mx-auto" />
+    <nav class="flex-1">
+      <ul class="space-y-3">
+        <li><a href="#" class="block px-3 py-2 rounded hover:bg-[#4a3b2f] active:bg-[#d6ff99] text-[#f7f1e8] font-semibold">Dashboard</a></li>
+        <li><a href="#" class="block px-3 py-2 rounded hover:bg-[#4a3b2f] text-[#f7f1e8] font-semibold">Applications</a></li>
+        <li><a href="#" class="block px-3 py-2 rounded hover:bg-[#4a3b2f] text-[#f7f1e8] font-semibold">Documents</a></li>
+        <li><a href="#" class="block px-3 py-2 rounded hover:bg-[#4a3b2f] text-[#f7f1e8] font-semibold">Messages</a></li>
+        <li><a href="#" class="block px-3 py-2 rounded hover:bg-[#4a3b2f] text-[#f7f1e8] font-semibold">Loan Summary</a></li>
+        <li><a href="#" class="block px-3 py-2 rounded hover:bg-[#4a3b2f] text-[#f7f1e8] font-semibold">Support</a></li>
       </ul>
-    </section>
+    </nav>
+  </aside>
 
-    <!-- LOAN SUMMARY -->
-    <section class="card loan-card">
-      <div class="card-header">
-        <h2>Loan Summary</h2>
+  <!-- Main Content -->
+  <main class="flex-1 p-8 relative">
+    
+    <!-- Top-right user info -->
+    <div class="absolute top-4 right-8">
+      <div class="relative group">
+        <span class="font-semibold text-[#35261f]">Welcome, <span id="userDisplay">Admin</span></span>
+        <div class="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded hidden group-hover:block">
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100" onclick="openSettings()">Settings</a>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100" onclick="logout()">Logout</a>
+        </div>
       </div>
-      <ul class="loan-summary">
-        <li><strong>Loan Type:</strong> Home Loan</li>
-        <li><strong>Amount:</strong> $650,000</li>
-        <li><strong>Interest Rate:</strong> 5.25%</li>
-        <li><strong>Term:</strong> 30 years</li>
-      </ul>
-    </section>
+    </div>
 
-    <!-- SUPPORT -->
-    <section class="card support-card">
-      <div class="card-header">
-        <h2>Support</h2>
+    <!-- Dashboard Header -->
+    <h1 class="text-3xl font-bold text-[#35261f] mb-6">Dashboard</h1>
+    <p class="mb-6">Welcome to your client CRM dashboard. Here you can track applications, upload documents, view messages, and check your loan summary.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <!-- Application Progress -->
+      <div class="bg-white rounded-lg p-6 shadow">
+        <h2 class="text-xl font-semibold mb-4">Application Progress</h2>
+        <div class="flex justify-between space-x-2">
+          <div class="flex-1 text-center py-2 bg-[#d6ff99] rounded">Fact Find</div>
+          <div class="flex-1 text-center py-2 bg-[#d6ff99] rounded">Submitted</div>
+          <div class="flex-1 text-center py-2 bg-gray-200 rounded">Conditional</div>
+          <div class="flex-1 text-center py-2 bg-gray-200 rounded">Approved</div>
+          <div class="flex-1 text-center py-2 bg-gray-200 rounded">Settlement</div>
+        </div>
       </div>
-      <ul class="contact-info">
-        <li>Email: support@brokerportal.com</li>
-        <li>Phone: 1800-123-456</li>
-        <li>Live Chat: 9am - 6pm</li>
-      </ul>
-    </section>
 
+      <!-- Document Upload -->
+      <div class="bg-white rounded-lg p-6 shadow">
+        <h2 class="text-xl font-semibold mb-4">Upload Documents</h2>
+        <p class="text-sm text-gray-600 mb-2">Accepted: PDF, JPG, PNG</p>
+        <div class="flex space-x-2 mb-2">
+          <input type="file" id="fileInput" class="border p-2 rounded flex-1">
+          <button class="bg-[#35261f] text-[#f7f1e8] px-4 rounded" onclick="uploadFile()">Upload</button>
+        </div>
+        <ul id="fileList" class="text-sm list-disc pl-5 mb-2"></ul>
+        <p class="text-xs text-gray-500">Demo mode — files remain in your browser</p>
+      </div>
+
+      <!-- Broker Messages -->
+      <div class="bg-white rounded-lg p-6 shadow">
+        <h2 class="text-xl font-semibold mb-4">Broker Messages</h2>
+        <ul class="list-disc pl-5 space-y-1 text-sm">
+          <li><strong>Broker:</strong> Please upload your most recent payslip.</li>
+          <li><strong>Broker:</strong> Your loan options have been updated.</li>
+        </ul>
+      </div>
+
+      <!-- Loan Summary -->
+      <div class="bg-white rounded-lg p-6 shadow">
+        <h2 class="text-xl font-semibold mb-4">Loan Summary</h2>
+        <ul class="list-disc pl-5 space-y-1 text-sm">
+          <li><strong>Loan Type:</strong> Home Loan</li>
+          <li><strong>Amount:</strong> $650,000</li>
+          <li><strong>Interest Rate:</strong> 5.25%</li>
+          <li><strong>Term:</strong> 30 years</li>
+        </ul>
+      </div>
+
+      <!-- Support -->
+      <div class="bg-white rounded-lg p-6 shadow col-span-full">
+        <h2 class="text-xl font-semibold mb-4">Support</h2>
+        <ul class="list-disc pl-5 space-y-1 text-sm">
+          <li>Email: support@brokerportal.com</li>
+          <li>Phone: 1800-123-456</li>
+          <li>Live Chat: 9am - 6pm</li>
+        </ul>
+      </div>
+
+    </div>
+    
   </main>
+
 </div>
 
-<footer class="footer">
-  © 2025 Broker CRM Portal · Confidential & Secure
+<!-- Footer -->
+<footer class="bg-white text-center p-4 text-sm text-gray-500 shadow-inner">
+  © 2025 Client CRM Portal · Confidential & Secure
 </footer>
 
-<script src="app.js"></script>
+<!-- Scripts -->
+<script>
+  const userName = "John Doe";
+  document.getElementById('userDisplay').textContent = userName;
+
+  function openSettings() {
+    alert("Settings page would open.");
+  }
+
+  function logout() {
+    window.location.href = 'login.html';
+  }
+
+  function uploadFile() {
+    const input = document.getElementById('fileInput');
+    const list = document.getElementById('fileList');
+    if (!input.files.length) return alert('Please select a file');
+    const file = input.files[0];
+    const li = document.createElement('li');
+    li.textContent = file.name + ' (added)';
+    list.appendChild(li);
+    input.value = '';
+  }
+</script>
+
 </body>
 </html>
