@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Client Loan Portal</title>
+  <title>Client CRM Portal</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,91 +15,101 @@
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="header">
-  <div class="header-inner">
-    <h1>Client Loan Portal</h1>
-    <p>Secure document uploads, real-time application tracking & broker updates</p>
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <h2>Broker CRM</h2>
   </div>
-</header>
-
-<!-- MAIN CONTAINER -->
-<main class="container">
-
-  <!-- APPLICATION STATUS -->
-  <section class="card">
-    <div class="card-header">
-      <h2>Application Progress</h2>
-      <span class="badge">Active</span>
-    </div>
-
-    <div class="status">
-      <div class="step active">Fact Find</div>
-      <div class="step active">Submitted</div>
-      <div class="step">Conditional</div>
-      <div class="step">Approved</div>
-      <div class="step">Settlement</div>
-    </div>
-  </section>
-
-  <!-- DOCUMENT UPLOAD -->
-  <section class="card">
-    <div class="card-header">
-      <h2>Document Uploads</h2>
-      <span class="subtext">Accepted: PDF, JPG, PNG</span>
-    </div>
-
-    <div class="upload-box">
-      <input type="file" id="fileInput">
-      <button onclick="uploadFile()">Upload Document</button>
-    </div>
-
-    <ul id="fileList" class="file-list"></ul>
-    <p class="note">Demo mode — files remain in your browser</p>
-  </section>
-
-  <!-- BROKER MESSAGES -->
-  <section class="card">
-    <div class="card-header">
-      <h2>Broker Updates</h2>
-    </div>
-    <ul class="messages">
-      <li><strong>Broker:</strong> Please upload your most recent payslip to move to formal approval.</li>
-      <li><strong>Broker:</strong> Your mortgage options have been updated, check the documents section.</li>
+  <nav class="sidebar-nav">
+    <ul>
+      <li class="active">Dashboard</li>
+      <li>Applications</li>
+      <li>Documents</li>
+      <li>Messages</li>
+      <li>Loan Summary</li>
+      <li>Support</li>
     </ul>
-  </section>
+  </nav>
+</aside>
 
-  <!-- LOAN SUMMARY -->
-  <section class="card">
-    <div class="card-header">
-      <h2>Loan Summary</h2>
-    </div>
-    <ul class="loan-summary">
-      <li><strong>Loan Type:</strong> Home Loan</li>
-      <li><strong>Amount:</strong> $650,000</li>
-      <li><strong>Interest Rate:</strong> 5.25%</li>
-      <li><strong>Term:</strong> 30 years</li>
-    </ul>
-  </section>
+<!-- MAIN CONTENT -->
+<div class="main-content">
+  <header class="topbar">
+    <h1>Client Dashboard</h1>
+    <div class="user-info">Welcome, John Doe</div>
+  </header>
 
-  <!-- SUPPORT CONTACT -->
-  <section class="card">
-    <div class="card-header">
-      <h2>Need Help?</h2>
-    </div>
-    <p>If you have any questions, contact your broker directly:</p>
-    <ul class="contact-info">
-      <li>Email: support@brokerportal.com</li>
-      <li>Phone: 1800-123-456</li>
-      <li>Live Chat: Available 9am - 6pm</li>
-    </ul>
-  </section>
+  <main class="container">
 
-</main>
+    <!-- APPLICATION STATUS -->
+    <section class="card status-card">
+      <div class="card-header">
+        <h2>Application Progress</h2>
+      </div>
+      <div class="status">
+        <div class="step active">Fact Find</div>
+        <div class="step active">Submitted</div>
+        <div class="step">Conditional</div>
+        <div class="step">Approved</div>
+        <div class="step">Settlement</div>
+      </div>
+    </section>
 
-<!-- FOOTER -->
+    <!-- DOCUMENT UPLOAD -->
+    <section class="card upload-card">
+      <div class="card-header">
+        <h2>Upload Documents</h2>
+        <span class="subtext">PDF, JPG, PNG</span>
+      </div>
+      <div class="upload-box">
+        <input type="file" id="fileInput">
+        <button onclick="uploadFile()">Upload</button>
+      </div>
+      <ul id="fileList" class="file-list"></ul>
+      <p class="note">Demo mode — files remain in your browser</p>
+    </section>
+
+    <!-- BROKER MESSAGES -->
+    <section class="card messages-card">
+      <div class="card-header">
+        <h2>Broker Messages</h2>
+      </div>
+      <ul class="messages">
+        <li><strong>Broker:</strong> Please upload your most recent payslip.</li>
+        <li><strong>Broker:</strong> Your loan options have been updated.</li>
+      </ul>
+    </section>
+
+    <!-- LOAN SUMMARY -->
+    <section class="card loan-card">
+      <div class="card-header">
+        <h2>Loan Summary</h2>
+      </div>
+      <ul class="loan-summary">
+        <li><strong>Loan Type:</strong> Home Loan</li>
+        <li><strong>Amount:</strong> $650,000</li>
+        <li><strong>Interest Rate:</strong> 5.25%</li>
+        <li><strong>Term:</strong> 30 years</li>
+      </ul>
+    </section>
+
+    <!-- SUPPORT -->
+    <section class="card support-card">
+      <div class="card-header">
+        <h2>Support</h2>
+      </div>
+      <ul class="contact-info">
+        <li>Email: support@brokerportal.com</li>
+        <li>Phone: 1800-123-456</li>
+        <li>Live Chat: 9am - 6pm</li>
+      </ul>
+    </section>
+
+  </main>
+</div>
+
 <footer class="footer">
-  © 2025 Client Loan Portal · Confidential & Secure
+  © 2025 Broker CRM Portal · Confidential & Secure
 </footer>
 
 <script src="app.js"></script>
