@@ -3,16 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Client & Broker Portal</title>
+<title>Broker CRM Login</title>
 <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
-<div class="text-center p-8 bg-white shadow-lg rounded">
-  <h1 class="text-3xl font-bold text-[#00abe5] mb-6">Welcome to Broker CRM Portal</h1>
-  <div class="space-x-4">
-    <a href="broker-dashboard.html" class="bg-[#00abe5] text-white px-4 py-2 rounded">Broker Dashboard</a>
-    <a href="client-dashboard.html" class="bg-gray-700 text-white px-4 py-2 rounded">Client Login</a>
+
+<div class="w-full max-w-md p-8 bg-white shadow-lg rounded">
+  <h1 class="text-3xl font-bold text-[#00abe5] mb-6 text-center">Broker CRM Portal</h1>
+
+  <div class="mb-4">
+    <label class="block font-semibold mb-1">Select Role:</label>
+    <select id="roleSelect" class="border p-2 rounded w-full">
+      <option value="client">Client</option>
+      <option value="broker">Broker</option>
+    </select>
   </div>
+
+  <div class="mb-4">
+    <label class="block font-semibold mb-1">Email:</label>
+    <input type="email" id="loginEmail" placeholder="Enter your email" class="border p-2 rounded w-full">
+  </div>
+
+  <button class="bg-[#00abe5] text-white px-4 py-2 rounded w-full" onclick="login()">Login</button>
+  <p id="loginError" class="text-red-500 mt-2 text-center"></p>
 </div>
+
+<script>
+function login() {
+  const role = document.getElementById('roleSelect').value;
+  const email = document.getElementById('loginEmail').value.trim();
+  const clients = JSON.parse(localStorage.getItem('clients') || '[]');
+
+  if (!email) {
+    document.getElementById('loginError').textContent = 'Please enter your email';
+    return;
+  }
+
+  if (role === 'broker') {
+    // For demo, any email logs in as broker
+    window.location.href = 'broker-dashboard.html';
+  } else {
+    // Client login
+    const client = clients.find(c => c.email === email);
+    if (!client) {
+      document.getElementById('loginError').textContent = 'Email not found';
+      return;
+    }
+    localStorage.setItem('currentClient', JSON.stringify(client));
+    window.location.href = 'client-home.html';
+  }
+}
+</script>
+
 </body>
 </html>
