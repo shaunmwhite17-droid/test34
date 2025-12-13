@@ -1,0 +1,47 @@
+body {
+
+
+.status div {
+flex: 1;
+min-width: 120px;
+text-align: center;
+padding: 10px;
+border-radius: 8px;
+background: #f7f1e8;
+}
+
+
+.status .active {
+background: #35261f;
+color: #d6ff99;
+font-weight: bold;
+}
+
+
+button {
+background: #35261f;
+color: #f7f1e8;
+border: none;
+padding: 10px 18px;
+border-radius: 8px;
+cursor: pointer;
+}
+
+
+button:hover {
+opacity: 0.9;
+}
+
+
+.note {
+font-size: 12px;
+color: #777;
+}
+
+
+footer {
+text-align: center;
+padding: 20px;
+font-size: 13px;
+color: #777;
+}

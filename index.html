@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Broker Client Portal</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<header>
+<h1>Client Loan Portal</h1>
+<p>Track your application and upload documents</p>
+</header>
+
+
+<main class="container">
+
+
+<section class="card">
+<h2>Application Status</h2>
+<div class="status">
+<div class="active">Fact Find</div>
+<div>Submitted</div>
+<div>Conditional</div>
+<div>Approved</div>
+<div>Settlement</div>
+</div>
+</section>
+
+
+<section class="card">
+<h2>Upload Documents</h2>
+<input type="file" id="fileInput">
+<button onclick="uploadFile()">Upload</button>
+<ul id="fileList"></ul>
+<p class="note">* Demo only – files stay in your browser</p>
+</section>
+
+
+<section class="card">
+<h2>Broker Message</h2>
+<p>Please upload your most recent payslip.</p>
+</section>
+
+
+</main>
+
+
+<footer>
+© 2025 Broker Client Portal
+</footer>
+
+
+<script src="app.js"></script>
+</body>
+</html>
