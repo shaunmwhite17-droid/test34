@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Broker Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+<div class="min-h-screen flex">
+  <!-- Sidebar -->
+  <aside class="w-64 p-6 bg-[#00abe5] text-white flex flex-col">
+    <img src="https://lmg-broker.s3.ap-southeast-2.amazonaws.com/brokers/loan-market-lms/31t1sfgj.wds.png" class="mb-8 w-40 mx-auto" />
+    <nav class="flex-1">
+      <ul class="space-y-3">
+        <li><a href="#" class="tab-link active">Dashboard</a></li>
+        <li><a href="client-dashboard.html" class="tab-link">Clients</a></li>
+        <li><a href="#" class="tab-link">Messages</a></li>
+        <li><a href="#" class="tab-link">Settings</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-8 relative">
+
+    <div class="absolute top-4 right-8">
+      <div class="relative group">
+        <span class="font-semibold text-[#00abe5]">Welcome, Broker</span>
+        <div class="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded hidden group-hover:block">
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100" onclick="logout()">Logout</a>
+        </div>
+      </div>
+    </div>
+
+    <h1 class="text-3xl font-bold text-[#00abe5] mb-6">Broker Dashboard</h1>
+
+    <div class="card col-span-full">
+      <h2 class="text-xl font-semibold mb-4">Clients</h2>
+      <div class="flex mb-4 gap-2">
+        <input type="text" id="clientName" placeholder="Client Name" class="border p-2 rounded flex-1">
+        <input type="email" id="clientEmail" placeholder="Client Email" class="border p-2 rounded flex-1">
+        <button class="bg-[#00abe5] text-white px-4 rounded" onclick="addClient()">Add Client</button>
+      </div>
+      <table class="min-w-full border border-gray-300">
+        <thead class="bg-[#00abe5] text-white">
+          <tr>
+            <th class="p-2">Name</th>
+            <th class="p-2">Email</th>
+            <th class="p-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="clientTable" class="bg-white"></tbody>
+      </table>
+    </div>
+
+  </main>
+</div>
+
+<footer class="bg-white text-center p-4 text-sm text-gray-500 shadow-inner">
+  © 2025 Broker CRM Portal · Confidential & Secure
+</footer>
+
+<script>
+let clients = JSON.parse(localStorage.getItem('clients') || '[]');
+
+function renderClients() {
+  const tbody = document.getElementById('clientTable');
+  tbody.innerHTML = '';
+  clients.forEach(c => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="p-2 border">${c.name}</td>
+      <td class="p-2 border">${c.email}</td>
+      <td class="p-2 border flex gap-1">
+        <button class="bg-red-500 text-white px-2 py-1 rounded" onclick="removeClient('${c.id}')">Delete</button>
+        <button class="bg-green-500 text-white px-2 py-1 rounded" onclick="viewClient('${c.id}')">View</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function addClient() {
+  const name = document.getElementById('clientName').value.trim();
+  const email = document.getElementById('clientEmail').value.trim();
+  if (!name || !email) return alert('Please fill both fields');
+  const id = Date.now().toString(); // unique ID for login
+  clients.push({id, name, email, documents: [], messages: [], status: 'Fact Find'});
+  localStorage.setItem('clients', JSON.stringify(clients));
+  renderClients();
+  document.getElementById('clientName').value = '';
+  document.getElementById('clientEmail').value = '';
+}
+
+function removeClient(id) {
+  clients = clients.filter(c => c.id !== id);
+  localStorage.setItem('clients', JSON.stringify(clients));
+  renderClients();
+}
+
+function viewClient(id) {
+  alert(`Client ID: ${id}\nThis could link to a detailed client page.`);
+}
+
+renderClients();
+
+function logout() {
+  window.location.href = 'login.html';
+}
+</script>
+
+</body>
+</html>
