@@ -1,53 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Client Dashboard</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Client Loan Portal</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f4f4;
+    color: #333;
+  }
+
+  header {
+    background: #00abe5;
+    color: #ffffff;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+  }
+
+  .card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  }
+
+  h2 {
+    margin-top: 0;
+    color: #00abe5;
+  }
+
+  .status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+  }
+
+  .status div {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    background: #e9f7fd;
+    font-size: 14px;
+  }
+
+  .status .active {
+    background: #00abe5;
+    color: #ffffff;
+    font-weight: bold;
+  }
+
+  ul {
+    padding-left: 20px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 13px;
+    color: #777;
+  }
+
+  .logout {
+    float: right;
+    background: #ff4d4f;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .logout:hover {
+    opacity: 0.9;
+  }
+</style>
 </head>
-<body class="bg-gray-100 text-gray-800">
 
-<div class="min-h-screen p-8">
-  <button class="bg-red-500 text-white px-4 py-2 rounded float-right" onclick="logout()">Logout</button>
-  <h1 class="text-3xl font-bold text-[#00abe5] mb-6" id="clientName"></h1>
+<body>
 
-  <div class="card mb-4 p-4 bg-white shadow rounded">
-    <h2 class="text-xl font-semibold mb-2">Application Status</h2>
-    <p id="clientStatus" class="font-semibold text-lg"></p>
+<header>
+  <button class="logout" onclick="logout()">Logout</button>
+  <h1>Client Loan Application Portal</h1>
+  <p>Track your loan application in real time</p>
+</header>
+
+<div class="container">
+
+  <!-- APPLICATION OVERVIEW -->
+  <div class="card">
+    <h2>Application Overview</h2>
+    <p><strong>Client:</strong> <span id="clientName"></span></p>
+    <p><strong>Loan Type:</strong> Home Loan</p>
+    <p><strong>Loan Amount:</strong> $650,000</p>
+
+    <div class="status" id="statusSteps">
+      <div>Fact Find</div>
+      <div>Submitted</div>
+      <div>Conditional</div>
+      <div>Approved</div>
+      <div>Settlement</div>
+    </div>
   </div>
 
-  <div class="card mb-4 p-4 bg-white shadow rounded">
-    <h2 class="text-xl font-semibold mb-2">Messages</h2>
-    <ul id="clientMessages" class="list-disc pl-5"></ul>
-  </div>
-
-  <div class="card mb-4 p-4 bg-white shadow rounded">
-    <h2 class="text-xl font-semibold mb-2">Documents</h2>
-    <ul id="clientDocs" class="list-disc pl-5"></ul>
+  <!-- BROKER MESSAGES -->
+  <div class="card">
+    <h2>Broker Messages</h2>
+    <ul id="messageList"></ul>
   </div>
 
 </div>
 
+<footer>
+  © 2025 Broker Client Portal · Confidential & Secure
+</footer>
+
 <script>
 const client = JSON.parse(localStorage.getItem('currentClient') || '{}');
-if(!client.id) { alert('Not logged in'); window.location.href='index.html'; }
 
+if (!client.id) {
+  alert('Session expired. Please log in again.');
+  window.location.href = 'index.html';
+}
+
+// Set client name
 document.getElementById('clientName').textContent = client.name;
-document.getElementById('clientStatus').textContent = client.status || 'No status yet';
 
-const msgsEl = document.getElementById('clientMessages');
-(client.messages || []).forEach(m=>{
-  const li = document.createElement('li'); li.textContent = m; msgsEl.appendChild(li);
+// Highlight status
+const steps = document.querySelectorAll('#statusSteps div');
+steps.forEach(step => {
+  if (step.textContent === client.status) {
+    step.classList.add('active');
+  }
 });
 
-const docsEl = document.getElementById('clientDocs');
-(client.documents || []).forEach(d=>{
-  const li = document.createElement('li'); li.textContent = d; docsEl.appendChild(li);
-});
+// Render messages
+const messageList = document.getElementById('messageList');
+if (client.messages && client.messages.length) {
+  client.messages.forEach(msg => {
+    const li = document.createElement('li');
+    li.textContent = msg;
+    messageList.appendChild(li);
+  });
+} else {
+  messageList.innerHTML = '<li>No messages from your broker yet.</li>';
+}
 
-function logout() { localStorage.removeItem('currentClient'); window.location.href='index.html'; }
+function logout() {
+  localStorage.removeItem('currentClient');
+  window.location.href = 'index.html';
+}
 </script>
 
 </body>
