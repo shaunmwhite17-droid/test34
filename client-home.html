@@ -1,64 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Client Dashboard</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="style.css">
-</head>
-<body class="bg-gray-100 text-gray-800">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Broker Client Portal</title>
 
-<div class="min-h-screen p-8">
-  <button class="bg-red-500 text-white px-4 py-2 rounded float-right" onclick="logout()">Logout</button>
-  <h1 class="text-3xl font-bold text-[#00abe5] mb-6" id="clientName"></h1>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f4f4;
+    color: #333;
+  }
 
-  <div class="card mb-4">
-    <h2 class="text-xl font-semibold mb-2">Application Status</h2>
-    <p id="clientStatus"></p>
-  </div>
+  header {
+    background: #00abe5;
+    color: #ffffff;
+    padding: 22px;
+    text-align: center;
+    position: relative;
+  }
 
-  <div class="card mb-4">
-    <h2 class="text-xl font-semibold mb-2">Messages</h2>
-    <ul id="clientMessages" class="list-disc pl-5"></ul>
-  </div>
+  .logout {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: #ff4d4f;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
 
-  <div class="card mb-4">
-    <h2 class="text-xl font-semibold mb-2">Documents</h2>
-    <ul id="clientDocs" class="list-disc pl-5"></ul>
-  </div>
+  .container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+  }
 
-</div>
+  .card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  }
 
-<script>
-const client = JSON.parse(localStorage.getItem('currentClient') || '{}');
-if(!client.id){
-  alert('Not logged in');
-  window.location.href='client-dashboard.html';
-}
+  h2 {
+    margin-top: 0;
+    color: #00abe5;
+  }
 
-document.getElementById('clientName').textContent = client.name;
-document.getElementById('clientStatus').textContent = client.status || 'No status yet';
+  .status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+  }
 
-const msgsEl = document.getElementById('clientMessages');
-(client.messages || []).forEach(m => {
-  const li = document.createElement('li');
-  li.textContent = m;
-  msgsEl.appendChild(li);
-});
-
-const docsEl = document.getElementById('clientDocs');
-(client.documents || []).forEach(d => {
-  const li = document.createElement('li');
-  li.textContent = d;
-  docsEl.appendChild(li);
-});
-
-function logout(){
-  localStorage.removeItem('currentClient');
-  window.location.href='client-dashboard.html';
-}
-</script>
-
-</body>
-</html>
+  .status div {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    background: #e9f7fd;
+    font-size
