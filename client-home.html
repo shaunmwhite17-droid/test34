@@ -66,4 +66,102 @@
     padding: 10px;
     border-radius: 8px;
     background: #e9f7fd;
-    font-size
+    font-size: 14px;
+  }
+
+  .status .active {
+    background: #00abe5;
+    color: #ffffff;
+    font-weight: bold;
+  }
+
+  ul {
+    padding-left: 20px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 13px;
+    color: #777;
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <button class="logout" onclick="logout()">Logout</button>
+  <h1>Client Loan Application Portal</h1>
+  <p>Track your loan application in real time</p>
+</header>
+
+<div class="container">
+
+  <!-- APPLICATION OVERVIEW -->
+  <div class="card">
+    <h2>Application Overview</h2>
+    <p><strong>Client:</strong> <span id="clientName"></span></p>
+    <p><strong>Loan Type:</strong> Home Loan</p>
+    <p><strong>Loan Amount:</strong> $650,000</p>
+
+    <div class="status" id="statusSteps">
+      <div>Fact Find</div>
+      <div>Submitted</div>
+      <div>Conditional</div>
+      <div>Approved</div>
+      <div>Settlement</div>
+    </div>
+  </div>
+
+  <!-- BROKER MESSAGES -->
+  <div class="card">
+    <h2>Broker Messages</h2>
+    <ul id="messageList"></ul>
+  </div>
+
+</div>
+
+<footer>
+  © 2025 Broker Client Portal · Confidential & Secure
+</footer>
+
+<script>
+const client = JSON.parse(localStorage.getItem('currentClient') || '{}');
+
+if (!client.id) {
+  alert('Session expired. Please log in again.');
+  window.location.href = 'index.html';
+}
+
+// Client name
+document.getElementById('clientName').textContent = client.name;
+
+// Status highlight
+const steps = document.querySelectorAll('#statusSteps div');
+steps.forEach(step => {
+  if (step.textContent === client.status) {
+    step.classList.add('active');
+  }
+});
+
+// Messages
+const messageList = document.getElementById('messageList');
+if (client.messages && client.messages.length) {
+  client.messages.forEach(msg => {
+    const li = document.createElement('li');
+    li.textContent = msg;
+    messageList.appendChild(li);
+  });
+} else {
+  messageList.innerHTML = '<li>No messages from your broker yet.</li>';
+}
+
+function logout() {
+  localStorage.removeItem('currentClient');
+  window.location.href = 'index.html';
+}
+</script>
+
+</body>
+</html>
