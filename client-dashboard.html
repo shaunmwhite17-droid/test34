@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Client Loan Portal</title>
+<title>Broker Client Portal</title>
 
 <style>
   body {
@@ -16,8 +16,21 @@
   header {
     background: #00abe5;
     color: #ffffff;
-    padding: 24px;
+    padding: 22px;
     text-align: center;
+    position: relative;
+  }
+
+  .logout {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: #ff4d4f;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
   }
 
   .container {
@@ -72,20 +85,6 @@
     font-size: 13px;
     color: #777;
   }
-
-  .logout {
-    float: right;
-    background: #ff4d4f;
-    color: #fff;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-
-  .logout:hover {
-    opacity: 0.9;
-  }
 </style>
 </head>
 
@@ -135,10 +134,10 @@ if (!client.id) {
   window.location.href = 'index.html';
 }
 
-// Set client name
+// Client name
 document.getElementById('clientName').textContent = client.name;
 
-// Highlight status
+// Status highlight
 const steps = document.querySelectorAll('#statusSteps div');
 steps.forEach(step => {
   if (step.textContent === client.status) {
@@ -146,7 +145,7 @@ steps.forEach(step => {
   }
 });
 
-// Render messages
+// Messages
 const messageList = document.getElementById('messageList');
 if (client.messages && client.messages.length) {
   client.messages.forEach(msg => {
